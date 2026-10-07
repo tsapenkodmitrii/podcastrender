@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PodcastRender | AI-Powered Podcast Timeline &amp; Render Optimizer</title>
+  <meta name="description" content="Transform raw audio and transcripts into production-ready render timelines. Streamline filler word removal, smart chaptering, and automated video editing with Claude API.">
+  <meta name="theme-color" content="#0B0F17">
+  <meta property="og:title" content="PodcastRender | AI-Powered Podcast Timeline &amp; Render Optimizer">
+  <meta property="og:description" content="Transform raw audio and transcripts into production-ready render timelines with Claude API.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://podcastrender.com/">
+  <link rel="canonical" href="https://podcastrender.com/">
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0B0F17',
+            panel: '#111827',
+            line: '#1F2937',
+            accent: '#818CF8',
+            accent2: '#A78BFA'
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-ink font-sans text-slate-200 antialiased selection:bg-accent/30 selection:text-white">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 border-b border-line/60 bg-ink/80 backdrop-blur">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4" aria-label="Main">
+      <a href="#top" class="text-lg font-semibold tracking-tight text-white">
+        Podcast<span class="text-accent">Render</span>
+      </a>
+      <div class="hidden items-center gap-8 text-sm text-slate-400 md:flex">
+        <a href="#features" class="hover:text-white transition">Features</a>
+        <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
+        <a href="#contact" class="hover:text-white transition">Contact</a>
+      </div>
+      <button type="button" data-open-modal
+              class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink transition hover:bg-accent2">
+        Join Waitlist
+      </button>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- Hero -->
+    <section class="relative overflow-hidden">
+      <div class="pointer-events-none absolute inset-x-0 -top-40 mx-auto h-[32rem] max-w-3xl rounded-full bg-gradient-to-r from-indigo-600/30 via-violet-600/20 to-transparent blur-3xl" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-4xl px-6 pb-20 pt-24 text-center md:pt-32">
+        <span class="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+          Powered by Claude Sonnet API
+        </span>
+        <h1 class="mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
+          AI-Powered Podcast Timeline &amp;
+          <span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Render Optimizer</span>
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          Transform raw audio &amp; transcripts into production-ready render timelines. Streamline filler word removal, smart chaptering, and automated video editing with Claude API.
+        </p>
+        <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <button type="button" data-open-modal
+                  class="w-full rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-ink shadow-lg shadow-indigo-500/20 transition hover:bg-accent2 sm:w-auto">
+            Join Waitlist
+          </button>
+          <button type="button" data-open-modal
+                  class="w-full rounded-lg border border-line bg-panel px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-accent/50 hover:text-white sm:w-auto">
+            Request Early Access
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="mx-auto max-w-6xl px-6 py-20">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-accent">Features</h2>
+        <p class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Everything from transcript to timeline</p>
+      </div>
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="group rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/40">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h10M4 18h7"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white">Smart Transcript Parsing</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-400">Extract narrative arcs and timestamps automatically, so every topic shift is mapped before you edit.</p>
+        </article>
+        <article class="group rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/40">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h10M4 12h16M4 17h8M17 5l3 3-3 3"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white">Intelligent Edit Lists (EDL/JSON)</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-400">Generate timeline cutlists for FFmpeg, Premiere, and Unity Headless from one structured source.</p>
+        </article>
+        <article class="group rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/40 sm:col-span-2 lg:col-span-1">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white">Automatic Chaptering &amp; Metadata</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-400">Get SEO-ready titles, chapters, and clip highlights ready to publish with your episode.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="border-y border-line bg-panel/40 py-20">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-sm font-semibold uppercase tracking-widest text-accent">How It Works</h2>
+          <p class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Three steps to a render-ready episode</p>
+        </div>
+        <ol class="mt-14 grid gap-8 md:grid-cols-3">
+          <li class="relative rounded-2xl border border-line bg-ink p-8">
+            <span class="text-sm font-semibold text-accent">Step 1</span>
+            <h3 class="mt-2 text-lg font-semibold text-white">Upload Raw Transcript / Audio</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-400">Drop in your recording or its transcript. Nothing else is needed to start.</p>
+          </li>
+          <li class="relative rounded-2xl border border-line bg-ink p-8">
+            <span class="text-sm font-semibold text-accent">Step 2</span>
+            <h3 class="mt-2 text-lg font-semibold text-white">Claude API Analyzes &amp; Structures Cuts</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-400">Claude finds filler words, weak passages, and natural chapter breaks, then proposes the cuts.</p>
+          </li>
+          <li class="relative rounded-2xl border border-line bg-ink p-8">
+            <span class="text-sm font-semibold text-accent">Step 3</span>
+            <h3 class="mt-2 text-lg font-semibold text-white">Export Render Timelines &amp; Media Packages</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-400">Download EDL or JSON timelines and a media package for your editor or render pipeline.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="mx-auto max-w-4xl px-6 py-24 text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Be first to render smarter</h2>
+      <p class="mx-auto mt-4 max-w-xl text-slate-400">Join the waitlist and get early access when PodcastRender opens to new producers.</p>
+      <button type="button" data-open-modal
+              class="mt-8 rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:opacity-90">
+        Join Waitlist
+      </button>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact" class="border-t border-line">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-slate-500 md:flex-row">
+      <p>Copyright &copy; 2026 PodcastRender. All rights reserved.</p>
+      <a href="mailto:hello@podcastrender.com" class="text-slate-400 transition hover:text-accent">hello@podcastrender.com</a>
+    </div>
+  </footer>
+
+  <!-- Waitlist modal (placeholder: no backend yet) -->
+  <dialog id="waitlist-modal" aria-labelledby="waitlist-title"
+          class="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-line bg-panel p-0 text-slate-200 shadow-2xl backdrop:bg-ink/80 backdrop:backdrop-blur-sm">
+    <form id="waitlist-form" method="dialog" class="p-8" novalidate>
+      <div class="flex items-start justify-between">
+        <h2 id="waitlist-title" class="text-xl font-semibold text-white">Join the waitlist</h2>
+        <button type="button" data-close-modal aria-label="Close"
+                class="-mr-2 -mt-2 rounded-lg p-2 text-slate-400 transition hover:text-white">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <p class="mt-2 text-sm text-slate-400">Tell us who you are. We will email you when early access opens.</p>
+
+      <div class="mt-6 space-y-5">
+        <div>
+          <label for="waitlist-name" class="block text-sm font-medium text-slate-300">Name</label>
+          <input id="waitlist-name" name="name" type="text" autocomplete="name"
+                 class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-white placeholder-slate-600 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                 placeholder="Jane Doe">
+        </div>
+        <div>
+          <label for="waitlist-email" class="block text-sm font-medium text-slate-300">Email <span class="text-accent">*</span></label>
+          <input id="waitlist-email" name="email" type="email" autocomplete="email" required
+                 class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-white placeholder-slate-600 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                 placeholder="you@example.com">
+          <p id="waitlist-error" class="mt-2 hidden text-sm text-rose-400" role="alert">Please enter a valid email address.</p>
+        </div>
+      </div>
+
+      <button type="submit"
+              class="mt-8 w-full rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-ink transition hover:bg-accent2">
+        Join Waitlist
+      </button>
+      <p id="waitlist-success" class="mt-4 hidden text-center text-sm text-emerald-400" role="status">Thanks! You are on the list.</p>
+    </form>
+  </dialog>
+
+  <script>
+    (function () {
+      var modal = document.getElementById('waitlist-modal');
+      var form = document.getElementById('waitlist-form');
+      var email = document.getElementById('waitlist-email');
+      var error = document.getElementById('waitlist-error');
+      var success = document.getElementById('waitlist-success');
+
+      document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          error.classList.add('hidden');
+          success.classList.add('hidden');
+          modal.showModal();
+          email.focus();
+        });
+      });
+
+      document.querySelector('[data-close-modal]').addEventListener('click', function () {
+        modal.close();
+      });
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.close();
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!email.checkValidity()) {
+          error.classList.remove('hidden');
+          email.focus();
+          return;
+        }
+        error.classList.add('hidden');
+        // Placeholder: no backend yet. Wire this to a form service or API later.
+        success.classList.remove('hidden');
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>
