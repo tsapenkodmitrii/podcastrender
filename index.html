@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PodcastRender | From raw audio to final render in a single prompt</title>
-  <meta name="description" content="PodcastRender uses Claude API to analyze multi-mic recordings, switch multi-cam angles, add b-roll overlays, and export render-ready timelines for podcasts.">
+  <meta name="description" content="PodcastRender uses AI to analyze multi-mic recordings, switch multi-cam angles, add b-roll overlays, and export render-ready timelines for podcasts.">
   <meta name="theme-color" content="#15100C">
   <meta property="og:title" content="PodcastRender | From raw audio to final render in a single prompt">
-  <meta property="og:description" content="The AI Co-Director for Modern Podcasters. Multi-cam switching, smart b-roll, and NLE-ready exports powered by Claude API.">
+  <meta property="og:description" content="The AI Co-Director for Modern Podcasters. Multi-cam switching, smart b-roll, and NLE-ready exports powered by AI.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://podcastrender.com/">
   <link rel="canonical" href="https://podcastrender.com/">
@@ -57,6 +57,26 @@
     @media (prefers-reduced-motion: reduce) {
       .wave-bar { animation: none; }
     }
+    dialog.waitlist {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+      transition: opacity .25s ease, transform .25s ease, display .25s allow-discrete, overlay .25s allow-discrete;
+    }
+    dialog.waitlist[open] { opacity: 1; transform: none; }
+    @starting-style {
+      dialog.waitlist[open] { opacity: 0; transform: translateY(12px) scale(0.98); }
+    }
+    dialog.waitlist::backdrop {
+      opacity: 0;
+      transition: opacity .25s ease, display .25s allow-discrete, overlay .25s allow-discrete;
+    }
+    dialog.waitlist[open]::backdrop { opacity: 1; }
+    @starting-style {
+      dialog.waitlist[open]::backdrop { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      dialog.waitlist, dialog.waitlist::backdrop { transition: none; }
+    }
   </style>
 </head>
 <body class="bg-ink font-sans text-cream antialiased selection:bg-accent/30 selection:text-cream">
@@ -89,14 +109,14 @@
         <div class="mx-auto max-w-4xl text-center">
           <span class="inline-flex items-center gap-2 rounded-full border border-accent2/40 bg-accent2/10 px-3 py-1 font-mono text-xs text-accent2">
             <span class="h-1.5 w-1.5 rounded-full bg-accent2" aria-hidden="true"></span>
-            Powered by Claude Sonnet API
+            Built by podcasters, for podcasters
           </span>
           <h1 class="mt-6 text-4xl font-bold leading-tight tracking-tight text-cream sm:text-5xl md:text-6xl">
             From raw audio to final render
             <span class="font-print italic font-normal text-accent2">in a single prompt.</span>
           </h1>
           <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Stop spending hours in NLE timelines. PodcastRender uses Claude API to analyze full multi-mic recordings, execute intelligent multi-cam switching, craft cinematic b-roll overlays, and adapt to your unique editing style over time.
+            Stop spending hours in NLE timelines. PodcastRender uses AI to analyze full multi-mic recordings, execute intelligent multi-cam switching, craft cinematic b-roll overlays, and adapt to your unique editing style over time.
           </p>
           <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <button type="button" data-open-modal
@@ -200,7 +220,7 @@
 
         <div class="mt-10 flex justify-center">
           <span class="inline-flex items-center gap-2 rounded-full border border-line bg-panel px-4 py-1.5 text-xs text-muted">
-            Built on <span class="font-semibold text-cream">Claude Sonnet API</span>
+            Made by editors who finish their own episodes
           </span>
         </div>
       </div>
@@ -240,7 +260,7 @@
           </div>
           <h3 class="text-lg font-semibold text-cream">Smart B-Roll &amp; Visual Overlays</h3>
           <p class="mt-2 font-mono text-xs uppercase tracking-wide text-accent2">Context-aware inserts</p>
-          <p class="mt-3 text-sm leading-relaxed text-muted">Claude API reads the topics and story beats, then places graphic inserts, pull quotes, hints, and media overlays at the exact timecode they belong.</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">AI reads the topics and story beats, then places graphic inserts, pull quotes, hints, and media overlays at the exact timecode they belong.</p>
         </article>
 
         <article class="rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/50">
@@ -279,8 +299,8 @@
           </li>
           <li class="rounded-2xl border border-line bg-ink p-8">
             <span class="font-mono text-sm font-bold text-accent">02 &middot; AI Processing</span>
-            <h3 class="mt-2 text-lg font-semibold text-cream">Claude reads, marks, and cuts</h3>
-            <p class="mt-3 text-sm leading-relaxed text-muted">Claude analyzes the transcript context, tags intonation, removes pauses and filler words, and builds the camera switching logic.</p>
+            <h3 class="mt-2 text-lg font-semibold text-cream">AI reads, marks, and cuts</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">AI analyzes the transcript context, tags intonation, removes pauses and filler words, and builds the camera switching logic.</p>
           </li>
           <li class="rounded-2xl border border-line bg-ink p-8">
             <span class="font-mono text-sm font-bold text-accent">03 &middot; Render &amp; Publish</span>
@@ -311,41 +331,60 @@
     </div>
   </footer>
 
-  <!-- Private beta modal (placeholder: no backend yet) -->
-  <dialog id="waitlist-modal" aria-labelledby="waitlist-title"
-          class="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-line bg-panel p-0 text-cream shadow-2xl backdrop:bg-ink/80 backdrop:backdrop-blur-sm">
-    <form id="waitlist-form" method="dialog" class="p-8" novalidate>
-      <div class="flex items-start justify-between">
-        <h2 id="waitlist-title" class="text-xl font-semibold text-cream">Join the <span class="font-print italic font-normal text-accent2">private beta</span></h2>
+  <!-- Private beta modal (frontend simulation: no backend yet) -->
+  <dialog id="waitlist-modal" aria-label="Private beta access request"
+          class="waitlist m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-md overflow-y-auto rounded-2xl border border-line bg-panel p-0 text-cream shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm">
+
+    <div id="waitlist-form-view" class="p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4">
+        <h2 class="text-xl font-semibold text-cream">Request <span class="font-print italic font-normal text-accent2">early access</span></h2>
         <button type="button" data-close-modal aria-label="Close"
                 class="-mr-2 -mt-2 rounded-lg p-2 text-muted transition hover:text-cream">
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
       </div>
-      <p class="mt-2 text-sm text-muted">Tell us who you are. We will email you when early access opens.</p>
+      <p class="mt-2 text-sm text-muted">Tell us where to send your invite. We are opening the private beta in stages.</p>
 
-      <div class="mt-6 space-y-5">
+      <form id="waitlist-form" class="mt-6 space-y-5" novalidate>
         <div>
-          <label for="waitlist-name" class="block text-sm font-medium text-cream/80">Name</label>
-          <input id="waitlist-name" name="name" type="text" autocomplete="name"
-                 class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-cream placeholder-muted/50 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
-                 placeholder="Jane Doe">
-        </div>
-        <div>
-          <label for="waitlist-email" class="block text-sm font-medium text-cream/80">Email <span class="text-accent2">*</span></label>
+          <label for="waitlist-email" class="block text-sm font-medium text-cream/80">Email Address <span class="text-accent2">*</span></label>
           <input id="waitlist-email" name="email" type="email" autocomplete="email" required
                  class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-cream placeholder-muted/50 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
-                 placeholder="you@example.com">
+                 placeholder="name@company.com">
           <p id="waitlist-error" class="mt-2 hidden text-sm text-rec" role="alert">Please enter a valid email address.</p>
         </div>
-      </div>
 
-      <button type="submit"
-              class="mt-8 w-full rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-ink transition hover:bg-accent2">
-        Join Private Beta
+        <div>
+          <label for="waitlist-nle" class="block text-sm font-medium text-cream/80">Primary NLE / Workflow <span class="text-muted">(optional)</span></label>
+          <select id="waitlist-nle" name="nle"
+                  class="mt-2 w-full appearance-none rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-cream outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30">
+            <option value="">Select a workflow</option>
+            <option value="premiere-pro">Premiere Pro</option>
+            <option value="davinci-resolve">DaVinci Resolve</option>
+            <option value="final-cut-pro">Final Cut Pro</option>
+            <option value="standalone-custom">Standalone Engine / Custom</option>
+          </select>
+        </div>
+
+        <button type="submit" id="waitlist-submit"
+                class="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-ink transition hover:bg-accent2 disabled:cursor-not-allowed disabled:opacity-70">
+          <svg id="waitlist-spinner" class="hidden h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-90" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/></svg>
+          <span id="waitlist-submit-label">Request Access</span>
+        </button>
+      </form>
+    </div>
+
+    <div id="waitlist-success-view" class="hidden p-6 text-center sm:p-8" role="status">
+      <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400/10 text-emerald-400" aria-hidden="true">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h2 class="mt-5 text-xl font-semibold text-cream">You're on the list!</h2>
+      <p class="mt-3 text-sm leading-relaxed text-muted">Thanks for applying. We are gradually rolling out access to creator teams and will send your invite as soon as a slot opens up.</p>
+      <button type="button" data-close-modal
+              class="mt-8 w-full rounded-lg border border-line bg-ink px-4 py-3 text-sm font-semibold text-cream transition hover:border-accent2/60 hover:text-accent2">
+        Close
       </button>
-      <p id="waitlist-success" class="mt-4 hidden text-center text-sm text-accent" role="status">Thanks! You are on the list.</p>
-    </form>
+    </div>
   </dialog>
 
   <script>
@@ -354,36 +393,73 @@
       var form = document.getElementById('waitlist-form');
       var email = document.getElementById('waitlist-email');
       var error = document.getElementById('waitlist-error');
-      var success = document.getElementById('waitlist-success');
+      var formView = document.getElementById('waitlist-form-view');
+      var successView = document.getElementById('waitlist-success-view');
+      var submit = document.getElementById('waitlist-submit');
+      var spinner = document.getElementById('waitlist-spinner');
+      var submitLabel = document.getElementById('waitlist-submit-label');
+      var successClose = successView.querySelector('[data-close-modal]');
+      var pending = null;
+
+      function setBusy(busy) {
+        submit.disabled = busy;
+        submit.setAttribute('aria-busy', busy ? 'true' : 'false');
+        spinner.classList.toggle('hidden', !busy);
+        submitLabel.textContent = busy ? 'Sending...' : 'Request Access';
+      }
+
+      function showForm() {
+        clearTimeout(pending);
+        pending = null;
+        form.reset();
+        error.classList.add('hidden');
+        setBusy(false);
+        successView.classList.add('hidden');
+        formView.classList.remove('hidden');
+      }
 
       document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          error.classList.add('hidden');
-          success.classList.add('hidden');
-          modal.showModal();
+          showForm();
+          if (!modal.open) modal.showModal();
+          document.body.style.overflow = 'hidden';
           email.focus();
         });
       });
 
-      document.querySelector('[data-close-modal]').addEventListener('click', function () {
-        modal.close();
+      modal.querySelectorAll('[data-close-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          modal.close();
+        });
       });
 
       modal.addEventListener('click', function (e) {
         if (e.target === modal) modal.close();
       });
 
+      modal.addEventListener('close', function () {
+        clearTimeout(pending);
+        pending = null;
+        document.body.style.overflow = '';
+      });
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+        if (submit.disabled) return;
         if (!email.checkValidity()) {
           error.classList.remove('hidden');
           email.focus();
           return;
         }
         error.classList.add('hidden');
-        // Placeholder: no backend yet. Wire this to a form service or API later.
-        success.classList.remove('hidden');
-        form.reset();
+        setBusy(true);
+        // Simulated request: no backend yet. Replace this timer with a real API call later.
+        pending = setTimeout(function () {
+          pending = null;
+          formView.classList.add('hidden');
+          successView.classList.remove('hidden');
+          successClose.focus();
+        }, 600);
       });
     })();
   </script>
