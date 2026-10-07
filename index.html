@@ -123,7 +123,7 @@
                     class="w-full rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-ink shadow-lg shadow-accent/15 transition hover:bg-accent2 sm:w-auto">
               Join Private Beta
             </button>
-            <button type="button" data-open-modal
+            <button type="button" data-open-modal="request"
                     class="w-full rounded-lg border border-line bg-panel px-6 py-3 text-sm font-semibold text-cream transition hover:border-accent2/60 hover:text-accent2 sm:w-auto">
               Request Early Access
             </button>
@@ -337,7 +337,7 @@
 
     <div id="waitlist-form-view" class="p-6 sm:p-8">
       <div class="flex items-start justify-between gap-4">
-        <h2 class="text-xl font-semibold text-cream">Request <span class="font-print italic font-normal text-accent2">early access</span></h2>
+        <h2 id="waitlist-title" class="text-xl font-semibold text-cream"></h2>
         <button type="button" data-close-modal aria-label="Close"
                 class="-mr-2 -mt-2 rounded-lg p-2 text-muted transition hover:text-cream">
           <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
@@ -351,7 +351,7 @@
           <input id="waitlist-email" name="email" type="email" autocomplete="email" required
                  class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-cream placeholder-muted/50 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
                  placeholder="name@company.com">
-          <p id="waitlist-error" class="mt-2 hidden text-sm text-rec" role="alert">Please enter a valid email address.</p>
+          <p id="waitlist-error" class="mt-2 hidden text-sm text-rec" role="alert">Enter a valid email, for example name@company.com.</p>
         </div>
 
         <div>
@@ -393,6 +393,7 @@
       var form = document.getElementById('waitlist-form');
       var email = document.getElementById('waitlist-email');
       var error = document.getElementById('waitlist-error');
+      var title = document.getElementById('waitlist-title');
       var formView = document.getElementById('waitlist-form-view');
       var successView = document.getElementById('waitlist-success-view');
       var submit = document.getElementById('waitlist-submit');
@@ -408,7 +409,17 @@
         submitLabel.textContent = busy ? 'Sending...' : 'Request Access';
       }
 
-      function showForm() {
+      var titles = {
+        join: 'Join the <span class="font-print italic font-normal text-accent2">private beta</span>',
+        request: 'Request <span class="font-print italic font-normal text-accent2">early access</span>'
+      };
+
+      function isValidEmail(value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
+      }
+
+      function showForm(mode) {
+        title.innerHTML = titles[mode] || titles.join;
         clearTimeout(pending);
         pending = null;
         form.reset();
@@ -420,7 +431,7 @@
 
       document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          showForm();
+          showForm(btn.getAttribute('data-open-modal'));
           if (!modal.open) modal.showModal();
           document.body.style.overflow = 'hidden';
           email.focus();
@@ -443,15 +454,22 @@
         document.body.style.overflow = '';
       });
 
+      email.addEventListener('input', function () {
+        error.classList.add('hidden');
+        email.removeAttribute('aria-invalid');
+      });
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         if (submit.disabled) return;
-        if (!email.checkValidity()) {
+        if (!isValidEmail(email.value)) {
           error.classList.remove('hidden');
+          email.setAttribute('aria-invalid', 'true');
           email.focus();
           return;
         }
         error.classList.add('hidden');
+        email.removeAttribute('aria-invalid');
         setBusy(true);
         // Simulated request: no backend yet. Replace this timer with a real API call later.
         pending = setTimeout(function () {
