@@ -3,50 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PodcastRender | AI-Powered Podcast Timeline &amp; Render Optimizer</title>
-  <meta name="description" content="Transform raw audio and transcripts into production-ready render timelines. Streamline filler word removal, smart chaptering, and automated video editing with Claude API.">
-  <meta name="theme-color" content="#0B0F17">
-  <meta property="og:title" content="PodcastRender | AI-Powered Podcast Timeline &amp; Render Optimizer">
-  <meta property="og:description" content="Transform raw audio and transcripts into production-ready render timelines with Claude API.">
+  <title>PodcastRender | From raw audio to final render in a single prompt</title>
+  <meta name="description" content="PodcastRender uses Claude API to analyze multi-mic recordings, switch multi-cam angles, add b-roll overlays, and export render-ready timelines for podcasts.">
+  <meta name="theme-color" content="#15100C">
+  <meta property="og:title" content="PodcastRender | From raw audio to final render in a single prompt">
+  <meta property="og:description" content="The AI Co-Director for Modern Podcasters. Multi-cam switching, smart b-roll, and NLE-ready exports powered by Claude API.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://podcastrender.com/">
   <link rel="canonical" href="https://podcastrender.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            ink: '#0B0F17',
-            panel: '#111827',
-            line: '#1F2937',
-            accent: '#818CF8',
-            accent2: '#A78BFA'
+            ink: '#15100C',
+            panel: '#211A13',
+            line: '#3B2E22',
+            cream: '#EFE4CF',
+            muted: '#A8977E',
+            accent: '#A3A46A',
+            accent2: '#C98A57',
+            rec: '#C2553B'
           },
           fontFamily: {
-            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif']
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif'],
+            print: ['"DM Serif Display"', 'Georgia', 'serif'],
+            mono: ['"Courier Prime"', 'ui-monospace', 'Consolas', 'monospace']
           }
         }
       }
     };
   </script>
+  <style>
+    .film-holes {
+      background-color: #0C0906;
+      background-image: radial-gradient(circle, #3B2E22 0 3px, transparent 3.5px);
+      background-size: 18px 100%;
+      background-repeat: repeat-x;
+      background-position: center;
+    }
+    .wave-bar {
+      animation: wave 1.6s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.4); }
+      50% { transform: scaleY(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .wave-bar { animation: none; }
+    }
+  </style>
 </head>
-<body class="bg-ink font-sans text-slate-200 antialiased selection:bg-accent/30 selection:text-white">
+<body class="bg-ink font-sans text-cream antialiased selection:bg-accent/30 selection:text-cream">
 
   <!-- Header -->
-  <header class="sticky top-0 z-40 border-b border-line/60 bg-ink/80 backdrop-blur">
+  <header class="sticky top-0 z-40 border-b border-line/60 bg-ink/85 backdrop-blur">
     <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4" aria-label="Main">
-      <a href="#top" class="text-lg font-semibold tracking-tight text-white">
+      <a href="#top" class="flex items-center gap-2 text-lg font-semibold tracking-tight text-cream">
+        <svg class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path stroke-linecap="round" d="M5 11a7 7 0 0014 0M12 18v4M8 22h8"/></svg>
         Podcast<span class="text-accent">Render</span>
       </a>
-      <div class="hidden items-center gap-8 text-sm text-slate-400 md:flex">
-        <a href="#features" class="hover:text-white transition">Features</a>
-        <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
-        <a href="#contact" class="hover:text-white transition">Contact</a>
+      <div class="hidden items-center gap-8 text-sm text-muted md:flex">
+        <a href="#features" class="transition hover:text-cream">Features</a>
+        <a href="#how-it-works" class="transition hover:text-cream">How It Works</a>
+        <a href="#contact" class="transition hover:text-cream">Contact</a>
       </div>
       <button type="button" data-open-modal
-              class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink transition hover:bg-accent2">
-        Join Waitlist
+              class="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-ink transition hover:bg-accent2">
+        Join Private Beta
       </button>
     </nav>
   </header>
@@ -55,85 +84,208 @@
 
     <!-- Hero -->
     <section class="relative overflow-hidden">
-      <div class="pointer-events-none absolute inset-x-0 -top-40 mx-auto h-[32rem] max-w-3xl rounded-full bg-gradient-to-r from-indigo-600/30 via-violet-600/20 to-transparent blur-3xl" aria-hidden="true"></div>
-      <div class="relative mx-auto max-w-4xl px-6 pb-20 pt-24 text-center md:pt-32">
-        <span class="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
-          <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
-          Powered by Claude Sonnet API
-        </span>
-        <h1 class="mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
-          AI-Powered Podcast Timeline &amp;
-          <span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Render Optimizer</span>
-        </h1>
-        <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
-          Transform raw audio &amp; transcripts into production-ready render timelines. Streamline filler word removal, smart chaptering, and automated video editing with Claude API.
-        </p>
-        <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <button type="button" data-open-modal
-                  class="w-full rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-ink shadow-lg shadow-indigo-500/20 transition hover:bg-accent2 sm:w-auto">
-            Join Waitlist
-          </button>
-          <button type="button" data-open-modal
-                  class="w-full rounded-lg border border-line bg-panel px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-accent/50 hover:text-white sm:w-auto">
-            Request Early Access
-          </button>
+      <div class="pointer-events-none absolute inset-x-0 -top-40 mx-auto h-[32rem] max-w-3xl rounded-full bg-gradient-to-r from-accent/20 via-accent2/15 to-transparent blur-3xl" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-6xl px-6 pb-20 pt-20 md:pt-28">
+        <div class="mx-auto max-w-4xl text-center">
+          <span class="inline-flex items-center gap-2 rounded-full border border-accent2/40 bg-accent2/10 px-3 py-1 font-mono text-xs text-accent2">
+            <span class="h-1.5 w-1.5 rounded-full bg-accent2" aria-hidden="true"></span>
+            Powered by Claude Sonnet API
+          </span>
+          <h1 class="mt-6 text-4xl font-bold leading-tight tracking-tight text-cream sm:text-5xl md:text-6xl">
+            From raw audio to final render
+            <span class="font-print italic font-normal text-accent2">in a single prompt.</span>
+          </h1>
+          <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            Stop spending hours in NLE timelines. PodcastRender uses Claude API to analyze full multi-mic recordings, execute intelligent multi-cam switching, craft cinematic b-roll overlays, and adapt to your unique editing style over time.
+          </p>
+          <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <button type="button" data-open-modal
+                    class="w-full rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-ink shadow-lg shadow-accent/15 transition hover:bg-accent2 sm:w-auto">
+              Join Private Beta
+            </button>
+            <button type="button" data-open-modal
+                    class="w-full rounded-lg border border-line bg-panel px-6 py-3 text-sm font-semibold text-cream transition hover:border-accent2/60 hover:text-accent2 sm:w-auto">
+              Request Early Access
+            </button>
+          </div>
         </div>
+
+        <!-- Editor mockup: mic tracks, multi-cam, b-roll on a film strip -->
+        <figure class="mx-auto mt-16 max-w-4xl" aria-label="Illustration of a PodcastRender multi-mic timeline">
+          <div class="overflow-hidden rounded-2xl border border-line bg-panel shadow-2xl shadow-black/40">
+            <div class="flex items-center justify-between border-b border-line px-4 py-3">
+              <div class="flex items-center gap-2 font-mono text-xs text-muted">
+                <span class="h-2.5 w-2.5 rounded-full bg-rec animate-pulse" aria-hidden="true"></span>
+                REC &nbsp;EP.042 &nbsp;00:42:17:09
+              </div>
+              <div class="hidden gap-1.5 sm:flex" aria-hidden="true">
+                <span class="h-2.5 w-2.5 rounded-full bg-line"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-line"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-line"></span>
+              </div>
+            </div>
+
+            <div class="film-holes h-4 w-full" aria-hidden="true"></div>
+
+            <div class="space-y-3 p-4 sm:p-6">
+              <!-- Mic A -->
+              <div class="grid grid-cols-[4.5rem_1fr] items-center gap-3 sm:grid-cols-[6rem_1fr]">
+                <div class="flex items-center gap-2 font-mono text-xs text-muted">
+                  <svg class="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path stroke-linecap="round" d="M5 11a7 7 0 0014 0M12 18v4"/></svg>
+                  MIC A
+                </div>
+                <div class="flex h-9 items-end justify-between gap-[3px] rounded-md bg-ink px-2" aria-hidden="true">
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-3" style="animation-delay:0s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-6" style="animation-delay:.2s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-4" style="animation-delay:.4s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-8" style="animation-delay:.1s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-5" style="animation-delay:.3s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-7" style="animation-delay:.5s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-3" style="animation-delay:.25s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-6" style="animation-delay:.15s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-4" style="animation-delay:.45s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-5" style="animation-delay:.05s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-8" style="animation-delay:.35s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent/70 h-3" style="animation-delay:.55s"></span>
+                </div>
+              </div>
+
+              <!-- Mic B -->
+              <div class="grid grid-cols-[4.5rem_1fr] items-center gap-3 sm:grid-cols-[6rem_1fr]">
+                <div class="flex items-center gap-2 font-mono text-xs text-muted">
+                  <svg class="h-4 w-4 text-accent2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path stroke-linecap="round" d="M5 11a7 7 0 0014 0M12 18v4"/></svg>
+                  MIC B
+                </div>
+                <div class="flex h-9 items-end justify-between gap-[3px] rounded-md bg-ink px-2" aria-hidden="true">
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-5" style="animation-delay:.1s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-3" style="animation-delay:.6s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-7" style="animation-delay:.3s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-4" style="animation-delay:0s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-6" style="animation-delay:.5s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-3" style="animation-delay:.2s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-8" style="animation-delay:.4s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-4" style="animation-delay:.15s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-6" style="animation-delay:.65s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-3" style="animation-delay:.35s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-5" style="animation-delay:.25s"></span>
+                  <span class="wave-bar block w-1 rounded-full bg-accent2/70 h-4" style="animation-delay:.5s"></span>
+                </div>
+              </div>
+
+              <!-- Multi-cam switching -->
+              <div class="grid grid-cols-[4.5rem_1fr] items-center gap-3 sm:grid-cols-[6rem_1fr]">
+                <div class="font-mono text-xs text-muted">CAM</div>
+                <div class="grid h-9 grid-cols-6 gap-1 font-mono text-[10px]" aria-hidden="true">
+                  <span class="flex items-center justify-center rounded bg-line text-muted">CAM 1</span>
+                  <span class="col-span-2 flex items-center justify-center rounded bg-accent/30 text-cream">CAM 2 · HOST</span>
+                  <span class="flex items-center justify-center rounded bg-line text-muted">CAM 3</span>
+                  <span class="col-span-2 flex items-center justify-center rounded bg-accent2/30 text-cream">CAM 3 · GUEST</span>
+                </div>
+              </div>
+
+              <!-- B-roll overlay -->
+              <div class="grid grid-cols-[4.5rem_1fr] items-center gap-3 sm:grid-cols-[6rem_1fr]">
+                <div class="font-mono text-xs text-muted">B-ROLL</div>
+                <div class="relative h-9" aria-hidden="true">
+                  <span class="absolute left-[18%] top-0 flex h-full w-[26%] items-center rounded border border-accent/50 bg-accent/10 px-2 font-mono text-[10px] text-accent">Quote card</span>
+                  <span class="absolute left-[58%] top-0 flex h-full w-[22%] items-center rounded border border-accent2/50 bg-accent2/10 px-2 font-mono text-[10px] text-accent2">Chapter</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="film-holes h-4 w-full" aria-hidden="true"></div>
+          </div>
+          <figcaption class="mt-3 text-center font-mono text-xs text-muted/70">Multi-mic input &rarr; AI cut plan &rarr; render timeline</figcaption>
+        </figure>
+
+        <div class="mt-10 flex justify-center">
+          <span class="inline-flex items-center gap-2 rounded-full border border-line bg-panel px-4 py-1.5 text-xs text-muted">
+            Built on <span class="font-semibold text-cream">Claude Sonnet API</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core value proposition -->
+    <section class="border-y border-line bg-panel/50 py-20">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <h2 class="font-mono text-sm uppercase tracking-widest text-accent">Core Value</h2>
+        <p class="mt-3 text-3xl font-bold tracking-tight text-cream sm:text-4xl">The AI <span class="font-print italic font-normal text-accent2">Co-Director</span> for Modern Podcasters</p>
+        <p class="mt-6 text-base leading-relaxed text-muted sm:text-lg">
+          Podcasting is not hard to record. It is hard to finish: hundreds of splices, hunting for bad takes, manual camera switching, and endless B-roll cuts. PodcastRender turns raw multi-track material into a publish-ready video package in minutes.
+        </p>
       </div>
     </section>
 
     <!-- Features -->
     <section id="features" class="mx-auto max-w-6xl px-6 py-20">
       <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-sm font-semibold uppercase tracking-widest text-accent">Features</h2>
-        <p class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Everything from transcript to timeline</p>
+        <h2 class="font-mono text-sm uppercase tracking-widest text-accent">Features</h2>
+        <p class="mt-3 text-3xl font-bold tracking-tight text-cream sm:text-4xl">Edited like a <span class="font-print italic font-normal text-accent2">director</span>, delivered like a studio</p>
       </div>
-      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <article class="group rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/40">
+      <div class="mt-14 grid gap-6 md:grid-cols-2">
+
+        <article class="rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/50">
           <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h10M4 18h7"/></svg>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="13" height="12" rx="2"/><path stroke-linejoin="round" d="M15 10l7-4v12l-7-4"/></svg>
           </div>
-          <h3 class="text-lg font-semibold text-white">Smart Transcript Parsing</h3>
-          <p class="mt-3 text-sm leading-relaxed text-slate-400">Extract narrative arcs and timestamps automatically, so every topic shift is mapped before you edit.</p>
+          <h3 class="text-lg font-semibold text-cream">AI Director &amp; Multi-Cam Switching</h3>
+          <p class="mt-2 font-mono text-xs uppercase tracking-wide text-accent">Operator-grade editing</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">Analyzes each speaker's audio stream, conversation context, and emotional peaks. Cuts between host close-up, guest reaction, and wide shot with no jump cuts and no missed lines.</p>
         </article>
-        <article class="group rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/40">
+
+        <article class="rounded-2xl border border-line bg-panel p-8 transition hover:border-accent2/50">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent2/10 text-accent2" aria-hidden="true">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path stroke-linecap="round" d="M7 21h10M9 9l3 3 2-2 3 3"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-cream">Smart B-Roll &amp; Visual Overlays</h3>
+          <p class="mt-2 font-mono text-xs uppercase tracking-wide text-accent2">Context-aware inserts</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">Claude API reads the topics and story beats, then places graphic inserts, pull quotes, hints, and media overlays at the exact timecode they belong.</p>
+        </article>
+
+        <article class="rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/50">
           <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h10M4 12h16M4 17h8M17 5l3 3-3 3"/></svg>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 19V5M4 12h6M4 16h10M14 8h6M14 12h4"/></svg>
           </div>
-          <h3 class="text-lg font-semibold text-white">Intelligent Edit Lists (EDL/JSON)</h3>
-          <p class="mt-3 text-sm leading-relaxed text-slate-400">Generate timeline cutlists for FFmpeg, Premiere, and Unity Headless from one structured source.</p>
+          <h3 class="text-lg font-semibold text-cream">Self-Learning Editing Model</h3>
+          <p class="mt-2 font-mono text-xs uppercase tracking-wide text-accent">Adapts to your style</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">Upload your past finished projects or tune a few edits in your prompt. The pipeline learns your pace, shot length, and overlay style.</p>
         </article>
-        <article class="group rounded-2xl border border-line bg-panel p-8 transition hover:border-accent/40 sm:col-span-2 lg:col-span-1">
-          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>
+
+        <article class="rounded-2xl border border-line bg-panel p-8 transition hover:border-accent2/50">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent2/10 text-accent2" aria-hidden="true">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linejoin="round" d="M7 3h7l5 5v13H7z"/><path stroke-linecap="round" d="M9 13l2 2 4-4M10 19h4"/></svg>
           </div>
-          <h3 class="text-lg font-semibold text-white">Automatic Chaptering &amp; Metadata</h3>
-          <p class="mt-3 text-sm leading-relaxed text-slate-400">Get SEO-ready titles, chapters, and clip highlights ready to publish with your episode.</p>
+          <h3 class="text-lg font-semibold text-cream">Zero-Friction Timeline Export</h3>
+          <p class="mt-2 font-mono text-xs uppercase tracking-wide text-accent2">NLE &amp; render-engine ready</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">The output is more than an MP4. You get a structured JSON or EDL project package for Adobe Premiere, DaVinci Resolve, or autonomous render systems.</p>
         </article>
+
       </div>
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="border-y border-line bg-panel/40 py-20">
+    <section id="how-it-works" class="border-y border-line bg-panel/50 py-20">
       <div class="mx-auto max-w-6xl px-6">
         <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-sm font-semibold uppercase tracking-widest text-accent">How It Works</h2>
-          <p class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Three steps to a render-ready episode</p>
+          <h2 class="font-mono text-sm uppercase tracking-widest text-accent">How It Works</h2>
+          <p class="mt-3 text-3xl font-bold tracking-tight text-cream sm:text-4xl">Three steps from recording to <span class="font-print italic font-normal text-accent2">publish</span></p>
         </div>
         <ol class="mt-14 grid gap-8 md:grid-cols-3">
-          <li class="relative rounded-2xl border border-line bg-ink p-8">
-            <span class="text-sm font-semibold text-accent">Step 1</span>
-            <h3 class="mt-2 text-lg font-semibold text-white">Upload Raw Transcript / Audio</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-400">Drop in your recording or its transcript. Nothing else is needed to start.</p>
+          <li class="rounded-2xl border border-line bg-ink p-8">
+            <span class="font-mono text-sm font-bold text-accent">01 &middot; Upload &amp; Prompt</span>
+            <h3 class="mt-2 text-lg font-semibold text-cream">Drop in your multi-mic recordings</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">Upload multi-channel audio or video and describe the mood you want, for example: <span class="font-print italic text-accent2">"Fast pace, focus on the guest, strict overlays."</span></p>
           </li>
-          <li class="relative rounded-2xl border border-line bg-ink p-8">
-            <span class="text-sm font-semibold text-accent">Step 2</span>
-            <h3 class="mt-2 text-lg font-semibold text-white">Claude API Analyzes &amp; Structures Cuts</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-400">Claude finds filler words, weak passages, and natural chapter breaks, then proposes the cuts.</p>
+          <li class="rounded-2xl border border-line bg-ink p-8">
+            <span class="font-mono text-sm font-bold text-accent">02 &middot; AI Processing</span>
+            <h3 class="mt-2 text-lg font-semibold text-cream">Claude reads, marks, and cuts</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">Claude analyzes the transcript context, tags intonation, removes pauses and filler words, and builds the camera switching logic.</p>
           </li>
-          <li class="relative rounded-2xl border border-line bg-ink p-8">
-            <span class="text-sm font-semibold text-accent">Step 3</span>
-            <h3 class="mt-2 text-lg font-semibold text-white">Export Render Timelines &amp; Media Packages</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-400">Download EDL or JSON timelines and a media package for your editor or render pipeline.</p>
+          <li class="rounded-2xl border border-line bg-ink p-8">
+            <span class="font-mono text-sm font-bold text-accent">03 &middot; Render &amp; Publish</span>
+            <h3 class="mt-2 text-lg font-semibold text-cream">Get the finished episode package</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">Receive the final video with timecodes, an SEO description, chapters, and cuts ready for Shorts and Reels.</p>
           </li>
         </ol>
       </div>
@@ -141,11 +293,11 @@
 
     <!-- Final CTA -->
     <section class="mx-auto max-w-4xl px-6 py-24 text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Be first to render smarter</h2>
-      <p class="mx-auto mt-4 max-w-xl text-slate-400">Join the waitlist and get early access when PodcastRender opens to new producers.</p>
+      <h2 class="text-3xl font-bold tracking-tight text-cream sm:text-4xl">Get your next episode out the door <span class="font-print italic font-normal text-accent2">faster</span></h2>
+      <p class="mx-auto mt-4 max-w-xl text-muted">Join the private beta and be among the first producers to try PodcastRender.</p>
       <button type="button" data-open-modal
-              class="mt-8 rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:opacity-90">
-        Join Waitlist
+              class="mt-8 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-ink shadow-lg shadow-accent/15 transition hover:bg-accent2">
+        Join Private Beta
       </button>
     </section>
 
@@ -153,46 +305,46 @@
 
   <!-- Footer -->
   <footer id="contact" class="border-t border-line">
-    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-slate-500 md:flex-row">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-muted md:flex-row">
       <p>Copyright &copy; 2026 PodcastRender. All rights reserved.</p>
-      <a href="mailto:hello@podcastrender.com" class="text-slate-400 transition hover:text-accent">hello@podcastrender.com</a>
+      <a href="mailto:hello@podcastrender.com" class="font-mono text-muted transition hover:text-accent2">hello@podcastrender.com</a>
     </div>
   </footer>
 
-  <!-- Waitlist modal (placeholder: no backend yet) -->
+  <!-- Private beta modal (placeholder: no backend yet) -->
   <dialog id="waitlist-modal" aria-labelledby="waitlist-title"
-          class="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-line bg-panel p-0 text-slate-200 shadow-2xl backdrop:bg-ink/80 backdrop:backdrop-blur-sm">
+          class="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-line bg-panel p-0 text-cream shadow-2xl backdrop:bg-ink/80 backdrop:backdrop-blur-sm">
     <form id="waitlist-form" method="dialog" class="p-8" novalidate>
       <div class="flex items-start justify-between">
-        <h2 id="waitlist-title" class="text-xl font-semibold text-white">Join the waitlist</h2>
+        <h2 id="waitlist-title" class="text-xl font-semibold text-cream">Join the <span class="font-print italic font-normal text-accent2">private beta</span></h2>
         <button type="button" data-close-modal aria-label="Close"
-                class="-mr-2 -mt-2 rounded-lg p-2 text-slate-400 transition hover:text-white">
+                class="-mr-2 -mt-2 rounded-lg p-2 text-muted transition hover:text-cream">
           <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
       </div>
-      <p class="mt-2 text-sm text-slate-400">Tell us who you are. We will email you when early access opens.</p>
+      <p class="mt-2 text-sm text-muted">Tell us who you are. We will email you when early access opens.</p>
 
       <div class="mt-6 space-y-5">
         <div>
-          <label for="waitlist-name" class="block text-sm font-medium text-slate-300">Name</label>
+          <label for="waitlist-name" class="block text-sm font-medium text-cream/80">Name</label>
           <input id="waitlist-name" name="name" type="text" autocomplete="name"
-                 class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-white placeholder-slate-600 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                 class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-cream placeholder-muted/50 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
                  placeholder="Jane Doe">
         </div>
         <div>
-          <label for="waitlist-email" class="block text-sm font-medium text-slate-300">Email <span class="text-accent">*</span></label>
+          <label for="waitlist-email" class="block text-sm font-medium text-cream/80">Email <span class="text-accent2">*</span></label>
           <input id="waitlist-email" name="email" type="email" autocomplete="email" required
-                 class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-white placeholder-slate-600 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                 class="mt-2 w-full rounded-lg border border-line bg-ink px-4 py-2.5 text-sm text-cream placeholder-muted/50 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
                  placeholder="you@example.com">
-          <p id="waitlist-error" class="mt-2 hidden text-sm text-rose-400" role="alert">Please enter a valid email address.</p>
+          <p id="waitlist-error" class="mt-2 hidden text-sm text-rec" role="alert">Please enter a valid email address.</p>
         </div>
       </div>
 
       <button type="submit"
               class="mt-8 w-full rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-ink transition hover:bg-accent2">
-        Join Waitlist
+        Join Private Beta
       </button>
-      <p id="waitlist-success" class="mt-4 hidden text-center text-sm text-emerald-400" role="status">Thanks! You are on the list.</p>
+      <p id="waitlist-success" class="mt-4 hidden text-center text-sm text-accent" role="status">Thanks! You are on the list.</p>
     </form>
   </dialog>
 
