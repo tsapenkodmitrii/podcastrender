@@ -1,0 +1,15 @@
+# OpenChamber tool output (screenshots, etc.)
+.openchamber/
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+
+# Local tooling
+node_modules/
+*.log
